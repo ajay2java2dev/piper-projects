@@ -9,3 +9,6 @@ pluginManagement {
 
 rootProject.name = 'piper-projects'
 include 'piper-resume-service'
+include 'piper-resume-repo'
+include 'piper-resume-spec'
+include 'piper-resume-listener'
