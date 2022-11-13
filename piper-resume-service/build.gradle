@@ -1,0 +1,89 @@
+plugins {
+	id 'org.springframework.boot'
+	id 'jacoco'
+}
+
+ext {
+	revision = 1.0 //update later to git version
+	buildDate = new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+	currentUser = System.getenv('USER') ?: 'Unknown'
+	title = "${project.rootProject.name}-services"
+}
+
+jacoco {
+	toolVersion = "0.8.8"
+	reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}
+
+test {
+	finalizedBy jacocoTestReport // report is always generated after tests run
+	jacoco {
+		destinationFile = layout.buildDirectory.file('jacoco/jacocoTest.exec').get().asFile
+		classDumpDir = layout.buildDirectory.dir('jacoco/classpathdumps').get().asFile
+	}
+}
+
+jacocoTestReport {
+	dependsOn test // tests are required to run before generating the report
+	reports {
+		xml.required = false
+		csv.required = false
+		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+	}
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+	implementation 'org.springframework.session:spring-session-core'
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	//Test libs
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+
+	testImplementation 'io.projectreactor:reactor-test'
+	testImplementation 'org.mockito:mockito-inline:4.8.0'
+	testImplementation 'org.hamcrest:hamcrest-core'
+	testImplementation 'com.squareup.okhttp3:mockwebserver'
+}
+
+springBoot {
+	buildInfo {
+		properties {
+			additional = [
+					'revision': revision,
+					'built-by': currentUser,
+					'title': title
+			]
+		}
+	}
+}
+
+bootJar {
+	archiveFileName = "${project.rootProject.name}-resume-service.jar"
+	manifest.attributes(
+			'Implementation-Title': title,
+			'Implementation-Version': project.version,
+			'Revision': revision,
+			'Build-Date': buildDate,
+			'Built-By': currentUser,
+			'Version': project.version
+	)
+}
+
+test {
+	maxParallelForks = 1
+}
+
+bootBuildImage {
+	imageName = "one-panpiper/piper-resumer-service"
+	environment = [
+			"BP_JVM_VERSION" : "11.*"
+	]
+}

@@ -1,0 +1,72 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+plugins {
+    id 'org.springframework.boot' version '2.7.5' apply false
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE' apply false
+    id 'java'
+}
+
+group = 'one.panpiper'
+version = '0.0.1-SNAPSHOT'
+description 'panpiper projects'
+
+allprojects {
+    apply plugin: 'maven-publish'
+    apply plugin: 'idea'
+
+    group this.group
+    version this.version
+
+    ext {
+        serviceName = "one-panpiper"
+        apiVersion = "0.0.1-SNAPSHOT"
+        springCloudVersion = "2021.0.5"
+    }
+
+    buildscript {
+        repositories {
+            mavenCentral()
+            google()
+            mavenLocal()
+            maven { url 'https://repo.spring.io/release' }
+        }
+    }
+
+    repositories {
+        mavenCentral()
+        google()
+        mavenLocal()
+        maven { url 'https://repo.spring.io/release' }
+    }
+}
+
+subprojects { subproject ->
+    apply plugin: 'groovy'
+    apply plugin: 'io.spring.dependency-management'
+
+    group rootProject.group
+    version rootProject.version
+    sourceCompatibility = JavaVersion.VERSION_11
+
+    jar {
+        manifest.attributes provider: 'PanPiper Digital Group Inc'
+    }
+
+    buildscript {
+        dependencies {
+            classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
+        }
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom SpringBootPlugin.BOM_COORDINATES
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+        maxParallelForks = 2
+    }
+}
