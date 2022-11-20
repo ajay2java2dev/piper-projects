@@ -1,3 +1,32 @@
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Piper Resume Service Data Repository',
+                'Implementation-Version': project.version,
+                'Version': project.version
+    }
+}
+
+dependencies {
+    annotationProcessor "org.hibernate:hibernate-jpamodelgen"
+    annotationProcessor "org.projectlombok:lombok"
+
+    implementation "org.projectlombok:lombok"
+    implementation "com.fasterxml.jackson.core:jackson-databind"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+    implementation "org.hibernate:hibernate-java8"
+    implementation "org.apache.commons:commons-lang3"
+    implementation "org.hibernate:hibernate-jpamodelgen"
+    implementation "org.projectlombok:lombok"
+
+    testImplementation ("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: 'org.junit.vintage', module: 'junit-jupiter-engine'
+    }
+
+    testCompileOnly "org.junit.jupiter:junit-jupiter", "org.junit.jupiter:junit-jupiter-api"
+    testRuntimeOnly "com.h2database:h2", "org.junit.jupiter:junit-jupiter-engine"
+
+}
+
 task prepareKotlinBuildScriptModel {
 
 }
