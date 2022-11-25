@@ -4,6 +4,7 @@ import one.pan.piper.resume.data.repositories.candidate.CandidateRepository;
 import one.pan.piper.resume.service.representation.metadata.CandidateMetadata;
 import one.pan.piper.resume.service.transformer.MetadataTransformer;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
 
 import java.time.LocalDate;
 
@@ -23,8 +24,10 @@ public class CandidateAccessor {
     }
 
     //Metadata
-    public CandidateMetadata retrieveCandidateMetadata (Integer yearsBefore) {
-        var totalNumYears = getTotalNumberOfCandidatesYearsBefore(yearsBefore);
+    public CandidateMetadata retrieveCandidateMetadata (MultiValueMap<String, Object> metaKeys) {
+        //TODO: Validate keys.
+        var totalNumYears = getTotalNumberOfCandidatesYearsBefore(metaKeys.containsKey("years_before") ?
+                (Integer) metaKeys.getFirst("years_before"): Integer.valueOf(0));
         return metadataTransformer.candidateMetadataTransform(totalNumYears);
     }
 }
