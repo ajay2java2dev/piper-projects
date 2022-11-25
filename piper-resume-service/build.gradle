@@ -37,25 +37,25 @@ dependencies {
 	implementation project(":piper-resume-repo")
 
 	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+	implementation "org.springframework.boot:spring-boot-starter-webflux"
+	implementation "org.springframework.cloud:spring-cloud-starter-sleuth"
 
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+	compileOnly "org.projectlombok:lombok"
+	annotationProcessor "org.projectlombok:lombok"
 
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	developmentOnly "org.springframework.boot:spring-boot-devtools"
 
 	//Test libs
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude group: "org.junit.vintage", module: "junit-vintage-engine"
 	}
 
-	testImplementation 'io.projectreactor:reactor-test'
-	testImplementation 'org.mockito:mockito-inline:4.8.0'
-	testImplementation 'org.hamcrest:hamcrest-core'
-	testImplementation 'com.squareup.okhttp3:mockwebserver'
+	testImplementation "io.projectreactor:reactor-test"
+	testImplementation "org.mockito:mockito-inline:4.8.0"
+	testImplementation "org.hamcrest:hamcrest-core"
+	testImplementation "com.squareup.okhttp3:mockwebserver"
 
-	runtimeOnly "org.hsqldb:hsqldb"
+	runtimeOnly "com.h2database:h2"
 }
 
 springBoot {
@@ -83,12 +83,12 @@ bootJar {
 }
 
 test {
-	maxParallelForks = 1
+	maxParallelForks = 2
 }
 
 bootBuildImage {
 	imageName = "one-panpiper/piper-resumer-service"
 	environment = [
-			"BP_JVM_VERSION" : "11.*"
+			"BP_JVM_VERSION" : "17.*"
 	]
 }

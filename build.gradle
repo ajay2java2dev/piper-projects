@@ -6,7 +6,7 @@ plugins {
     id 'java'
 }
 
-group = 'one.panpiper'
+group = 'one.pan.piper'
 version = '0.0.1-SNAPSHOT'
 description 'panpiper projects'
 
