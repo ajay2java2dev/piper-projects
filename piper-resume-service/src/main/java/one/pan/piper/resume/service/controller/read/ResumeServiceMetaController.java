@@ -5,6 +5,7 @@ import one.pan.piper.resume.service.openapi.api.MetaApi;
 import one.pan.piper.resume.service.openapi.model.CandidateMetadata;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+
+import java.util.Optional;
 
 @RestController
 public class ResumeServiceMetaController implements MetaApi {
@@ -23,7 +26,12 @@ public class ResumeServiceMetaController implements MetaApi {
     }
 
     @Override
-    public Mono<ResponseEntity<CandidateMetadata>> getCandidateMetadata(String xApplicationId, ServerWebExchange exchange) throws Exception {
-        return Mono.justOrEmpty(new ResponseEntity<>(candidateAccessor.retrieveCandidateMetadata(null), HttpStatus.OK));
+    public Mono<ResponseEntity<CandidateMetadata>> getCandidateMetadata(String xApplicationId, Optional<Integer> greaterThanAge,
+                                                                        ServerWebExchange exchange) throws Exception {
+
+        var multiValueMap = new LinkedMultiValueMap<String, Object>();
+        greaterThanAge.ifPresent(integer -> multiValueMap.add("age_greater_than_years", integer));
+
+        return Mono.justOrEmpty(new ResponseEntity<>(candidateAccessor.retrieveCandidateMetadata(multiValueMap), HttpStatus.OK));
     }
 }

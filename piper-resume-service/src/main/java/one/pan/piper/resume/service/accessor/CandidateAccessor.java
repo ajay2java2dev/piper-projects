@@ -26,8 +26,8 @@ public class CandidateAccessor {
     //Metadata
     public CandidateMetadata retrieveCandidateMetadata (MultiValueMap<String, Object> metaKeys) {
         //TODO: Validate keys.
-        var totalNumYears = getTotalNumberOfCandidatesYearsBefore(metaKeys.containsKey("years_before") ?
-                (Integer) metaKeys.getFirst("years_before"): Integer.valueOf(0));
+        var totalNumYears = getTotalNumberOfCandidatesYearsBefore(metaKeys.containsKey("age_greater_than_years") ?
+                (Integer) metaKeys.getFirst("age_greater_than_years"): Integer.valueOf(0));
         return metadataTransformer.candidateMetadataTransform(totalNumYears);
     }
 }
