@@ -223,7 +223,7 @@
           "$ref" : "#/components/parameters/X-Application-Id"
         }, {
           "in" : "query",
-          "name" : "greater_than_age",
+          "name" : "age_greater_than_years",
           "schema" : {
             "type" : "integer"
           },
