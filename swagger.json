@@ -1,0 +1,405 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "version" : "0.0.1",
+    "title" : "DIGI Resume API",
+    "description" : "Digital Resume API",
+    "contact" : {
+      "name" : "Pan Piper",
+      "url" : "https://panpiper.godaddysites.com/",
+      "email" : "noreply@panpiper.com"
+    }
+  },
+  "servers" : [ {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/panpiper-services/digi-resume-api/0.0.1"
+  }, {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/content-service/digi-resume-api/0.0.1"
+  }, {
+    "url" : "https://dev.resume.panpiper.one/digi-resume/v1"
+  }, {
+    "url" : "https://qa.resume.panpiper.one/digi-resume/v1"
+  }, {
+    "url" : "https://uat.resume.panpiper.one/digi-resume/v1"
+  }, {
+    "url" : "https://prod.resume.panpiper.one/digi-resume/v1"
+  } ],
+  "tags" : [ {
+    "name" : "Entrypoint",
+    "description" : "Entrypoint operations related to resume service."
+  }, {
+    "name" : "Candidate",
+    "description" : "Operations related to candidate details"
+  }, {
+    "name" : "Resume",
+    "description" : "Operations related to resume for candidates"
+  }, {
+    "name" : "Metadata",
+    "description" : "Operations related to resume services metadata"
+  } ],
+  "paths" : {
+    "/entrypoint" : {
+      "get" : {
+        "tags" : [ "Entrypoint" ],
+        "summary" : "A map of operations links that can be followed from the response. The key of the map is a short name for the link, following the naming constraints of the names for Component Objects.",
+        "description" : "Refer to: https://swagger.io/specification/?sbsearch=array#link-object",
+        "operationId" : "getEntrypointLinks",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/X-Application-Id"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Entrypoint content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResumeContent"
+                }
+              }
+            },
+            "links" : {
+              "getCandidatesResumesLink" : {
+                "$ref" : "#/components/links/getCandidatesResumesLink"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Errors"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/candidates/{candidateId}/resumes" : {
+      "get" : {
+        "tags" : [ "Candidate" ],
+        "summary" : "Retrieve candidates resumes with specific version number and description.",
+        "description" : "Retrieve candidates resumes with specific version number and description.",
+        "operationId" : "getCandidatesResumes",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/X-Application-Id"
+        }, {
+          "in" : "path",
+          "name" : "candidateId",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true,
+          "description" : "ID of the resume generated for the candidate."
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Candidate resume content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResumeContent"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Errors"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "deprecated" : false,
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      }
+    },
+    "/candidates/{candidateId}/resumes/{resumeId}" : {
+      "get" : {
+        "tags" : [ "Resume" ],
+        "summary" : "Retrieve resume content for the given resumeId.",
+        "description" : "Retrieve resume content for the given candidates.",
+        "operationId" : "getCandidateResumeContent",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/X-Application-Id"
+        }, {
+          "in" : "path",
+          "name" : "candidateId",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true,
+          "description" : "ID of the candidate."
+        }, {
+          "in" : "path",
+          "name" : "resumeId",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true,
+          "description" : "ID of the resume generated for the candidate."
+        }, {
+          "in" : "query",
+          "name" : "version",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true,
+          "description" : "Version of the resume to be retrieved."
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Candidate resume content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResumeContent"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Errors"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "deprecated" : false,
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      }
+    },
+    "/meta/candidates" : {
+      "get" : {
+        "tags" : [ "Metadata" ],
+        "summary" : "Retrieve Metadata for available candidates.",
+        "description" : "Retrieve Metadata for available candidates.",
+        "operationId" : "getCandidateMetadata",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/X-Application-Id"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Candidate Metadata",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CandidateMetadata"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Errors"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "deprecated" : false,
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Error" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Errors" : {
+        "type" : "object",
+        "properties" : {
+          "errors" : {
+            "type" : "array",
+            "minItems" : 1,
+            "items" : {
+              "$ref" : "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Address" : {
+        "type" : "object",
+        "properties" : {
+          "address_line_1" : {
+            "type" : "string",
+            "example" : "2700, W Royal Ln"
+          },
+          "address_line_2" : {
+            "type" : "string",
+            "example" : "Apt #100"
+          },
+          "city" : {
+            "type" : "string",
+            "example" : "Irving"
+          },
+          "state" : {
+            "type" : "string",
+            "example" : "Dallas"
+          },
+          "mail_postal_code" : {
+            "type" : "string",
+            "example" : 98109
+          },
+          "type" : {
+            "type" : "string",
+            "enum" : [ "permanent", "mailing" ]
+          }
+        }
+      },
+      "Candidate" : {
+        "type" : "object",
+        "properties" : {
+          "first_name" : {
+            "type" : "string",
+            "example" : "Jeff"
+          },
+          "middle_name" : {
+            "type" : "string",
+            "example" : "Bezos"
+          },
+          "last_name" : {
+            "type" : "string",
+            "example" : "Bezos"
+          },
+          "birth_date" : {
+            "type" : "string",
+            "format" : "date",
+            "example" : "1964-01-12"
+          },
+          "address" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Address"
+            },
+            "minimum" : 1,
+            "maximum" : 5
+          }
+        }
+      },
+      "ResumeContent" : {
+        "type" : "object",
+        "properties" : {
+          "resume_id" : {
+            "type" : "string"
+          },
+          "version" : {
+            "type" : "string"
+          },
+          "candiate_info" : {
+            "$ref" : "#/components/schemas/Candidate"
+          }
+        }
+      },
+      "CandidateMetadata" : {
+        "type" : "object",
+        "properties" : {
+          "total_number_of_candidates" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      }
+    },
+    "parameters" : {
+      "X-Application-Id" : {
+        "name" : "X-Application-Id",
+        "required" : true,
+        "in" : "header",
+        "schema" : {
+          "type" : "string"
+        }
+      }
+    },
+    "securitySchemes" : {
+      "api_key" : {
+        "type" : "apiKey",
+        "name" : "subsription-key",
+        "in" : "header"
+      }
+    },
+    "links" : {
+      "getCandidatesResumesLink" : {
+        "operationId" : "getCandidatesResumes",
+        "parameters" : {
+          "candidateId" : "$request.path.candidateId"
+        }
+      },
+      "getCandidatesResumeContentLink" : {
+        "operationId" : "getCandidateResumeContent",
+        "parameters" : {
+          "candidateId" : "$request.path.candidateId",
+          "resumeId" : "$request.path.resumeId"
+        }
+      }
+    }
+  }
+}
