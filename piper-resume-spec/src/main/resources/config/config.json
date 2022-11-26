@@ -1,0 +1,17 @@
+{
+  "basePackage": "one.pan.piper.resume.service.openapi",
+  "apiPackage": "one.pan.piper.resume.service.openapi.api",
+  "modelPackage": "one.pan.piper.resume.service.openapi.model",
+  "configPackage" : "one.pan.piper.resume.service.openapi.config",
+  "serializableModel": true,
+  "dateLibrary": "java8",
+  "interfaceOnly": true,
+  "useBeanValidation": true,
+  "java8": true,
+  "reactive": true,
+  "useOptional": true,
+  "unhandledException": true,
+  "swaggerDocketConfig": true,
+  "library": "spring-boot",
+  "_comment": "additionalModelTypeAnnotations can be used for @lombok.Builder @lombok.NoArgsConstructor @lombok.AllArgsConstructor on all models"
+}

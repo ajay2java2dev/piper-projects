@@ -1,7 +1,7 @@
 package one.pan.piper.resume.service.accessor;
 
 import one.pan.piper.resume.data.repositories.candidate.CandidateRepository;
-import one.pan.piper.resume.service.representation.metadata.CandidateMetadata;
+import one.pan.piper.resume.service.openapi.model.CandidateMetadata;
 import one.pan.piper.resume.service.transformer.MetadataTransformer;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;

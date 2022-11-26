@@ -1,3 +1,55 @@
-task prepareKotlinBuildScriptModel {
+plugins {
+    id 'java-library'
+}
 
+
+ext {
+    openApiFileName = "${projectDir}/src/main/resources/spec/api-panpiper-resume-openapi.yaml"
+    openApiConfigFileName = "${projectDir}/src/main/resources/config/config.json"
+    openApiOutputDirName = "${project.buildDir}/openapi"
+}
+
+configurations {
+    openApiGenerator
+}
+
+task openApiGenerator(type: JavaExec) {
+    classpath = configurations.openApiGenerator
+    mainClass = 'org.openapitools.codegen.OpenAPIGenerator'
+    args = [ 'generate', '--generator-name', 'spring',
+             '--input-spec', openApiFileName,
+             '--config', openApiConfigFileName,
+             '--output', openApiOutputDirName
+    ]
+}
+
+compileJava.dependsOn openApiGenerator
+
+sourceSets {
+    main {
+        java {
+            srcDir "${openApiOutputDirName}/src/main/java"
+        }
+        resources {
+            srcDir "${openApiOutputDirName}/src/main/resources"
+        }
+    }
+}
+
+dependencies {
+    openApiGenerator "org.openapitools:openapi-generator-cli:6.2.0"
+
+    annotationProcessor "org.projectlombok:lombok"
+
+    compileOnly  "org.springframework.boot:spring-boot-starter-webflux",
+            "org.openapitools:jackson-databind-nullable:0.2.4",
+            "io.springfox:springfox-swagger2:3.0.0",
+            "io.swagger:swagger-annotations:1.6.8",
+            "com.fasterxml.jackson.datatype:jackson-datatype-jsr310",
+            "org.springframework:spring-webflux",
+            "org.projectlombok:lombok",
+
+            "jakarta.validation:jakarta.validation-api",
+            "jakarta.annotation:jakarta.annotation-api",
+            "jakarta.servlet:jakarta.servlet-api"
 }
