@@ -227,7 +227,7 @@
           "schema" : {
             "type" : "integer"
           },
-          "description" : "The number of candidates to retrieve"
+          "description" : "The candidates who are greater than age."
         } ],
         "responses" : {
           "200" : {
