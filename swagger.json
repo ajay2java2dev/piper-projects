@@ -221,6 +221,13 @@
         "operationId" : "getCandidateMetadata",
         "parameters" : [ {
           "$ref" : "#/components/parameters/X-Application-Id"
+        }, {
+          "in" : "query",
+          "name" : "greater_than_age",
+          "schema" : {
+            "type" : "integer"
+          },
+          "description" : "The number of candidates to retrieve"
         } ],
         "responses" : {
           "200" : {
