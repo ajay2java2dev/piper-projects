@@ -8,6 +8,9 @@ info:
     url: https://panpiper.godaddysites.com/
     email: noreply@panpiper.com
 servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/panpiper-services/digi-resume-api/0.0.1
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/content-service/digi-resume-api/0.0.1
   - url: https://dev.resume.panpiper.one/digi-resume/v1
@@ -243,9 +246,11 @@ components:
           $ref: '#/components/schemas/Candidate'
     CandidateMetadata:
       type: object
+      x-class-extra-annotation: "@lombok.Builder @lombok.NoArgsConstructor @lombok.AllArgsConstructor"
       properties:
         total_number_of_candidates:
           type: integer
+          format: int64
   parameters:
     X-Application-Id:
       name: X-Application-Id
