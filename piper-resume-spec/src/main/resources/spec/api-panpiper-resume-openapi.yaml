@@ -153,10 +153,15 @@ paths:
       parameters:
         - $ref: '#/components/parameters/X-Application-Id'
         - in: query
-          name: age_greater_than_years
+          name: query_params
           schema:
-            type: integer
-          description: The candidates who are greater than age.
+            type: object
+            properties:
+                age_greater_than_years:
+                  type: integer
+                age_less_than_years:
+                  type: integer
+          description: Query Params map to handle multiple parameters
       responses:
         200:
           description: Candidate Metadata
