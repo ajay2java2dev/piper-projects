@@ -235,7 +235,7 @@
               }
             }
           },
-          "description" : "The candidates who are greater than age."
+          "description" : "Query Params map to handle multiple parameters"
         } ],
         "responses" : {
           "200" : {
