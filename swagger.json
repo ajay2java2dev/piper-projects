@@ -361,6 +361,7 @@
       },
       "CandidateMetadata" : {
         "type" : "object",
+        "x-class-extra-annotation" : "@lombok.Builder @lombok.NoArgsConstructor @lombok.AllArgsConstructor",
         "properties" : {
           "total_number_of_candidates" : {
             "type" : "integer",
