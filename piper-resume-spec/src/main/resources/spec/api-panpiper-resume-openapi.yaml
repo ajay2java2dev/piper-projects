@@ -152,6 +152,11 @@ paths:
       operationId: "getCandidateMetadata"
       parameters:
         - $ref: '#/components/parameters/X-Application-Id'
+        - in: query
+          name: greater_than_age
+          schema:
+            type: integer
+          description: The candidates who are greater than age.
       responses:
         200:
           description: Candidate Metadata
