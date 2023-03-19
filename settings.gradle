@@ -2,8 +2,10 @@ pluginManagement {
     repositories {
         mavenCentral()
         google()
-        mavenLocal()
+        mavenLocal() //jcenter() - JFrog announced JCenter's sunset in February 2021. Use mavenCentral() instead.
         maven { url 'https://repo.spring.io/release' }
+
+        gradlePluginPortal()
     }
 }
 
