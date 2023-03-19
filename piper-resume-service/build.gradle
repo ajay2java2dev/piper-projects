@@ -41,7 +41,13 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-webflux"
 	implementation "org.springframework.cloud:spring-cloud-starter-sleuth"
 
-	compileOnly "org.projectlombok:lombok"
+	implementation "org.projectlombok:lombok"
+	implementation "io.github.resilience4j:resilience4j-spring-boot2"
+	implementation "io.github.resilience4j:resilience4j-reactor"
+	implementation "org.springframework.boot:spring-boot-starter-aop"
+	implementation "org.springframework.boot:spring-boot-starter-actuator"
+	implementation "io.micrometer:micrometer-registry-prometheus"
+
 	annotationProcessor "org.projectlombok:lombok"
 
 	developmentOnly "org.springframework.boot:spring-boot-devtools"

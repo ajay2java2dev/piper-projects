@@ -252,7 +252,7 @@ components:
           type: string
         version:
           type: string
-        candiate_info:
+        candidate_info:
           $ref: '#/components/schemas/Candidate'
     CandidateMetadata:
       type: object
@@ -271,7 +271,7 @@ components:
   securitySchemes:
     api_key:
       type: apiKey
-      name: subsription-key
+      name: subscription-key
       in: header
   links:
     #internal links

@@ -2,7 +2,6 @@ plugins {
     id 'java-library'
 }
 
-
 ext {
     openApiFileName = "${projectDir}/src/main/resources/spec/api-panpiper-resume-openapi.yaml"
     openApiConfigFileName = "${projectDir}/src/main/resources/config/config.json"

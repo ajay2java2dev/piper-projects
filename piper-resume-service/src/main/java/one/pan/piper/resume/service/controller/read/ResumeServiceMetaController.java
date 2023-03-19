@@ -24,14 +24,4 @@ public class ResumeServiceMetaController implements MetaApi {
     public ResumeServiceMetaController(CandidateAccessor candidateAccessor) {
         this.candidateAccessor = candidateAccessor;
     }
-
-
-    @Override
-    public Mono<ResponseEntity<CandidateMetadata>> getCandidateMetadata(String xApplicationId,
-                                                                        Optional<Integer> ageGreaterThanYears,
-                                                                        ServerWebExchange exchange) throws Exception {
-        var multiValueMap = new LinkedMultiValueMap<String, Object>();
-        ageGreaterThanYears.ifPresent(integer -> multiValueMap.add("age_greater_than_years", integer));
-        return Mono.justOrEmpty(new ResponseEntity<>(candidateAccessor.retrieveCandidateMetadata(multiValueMap), HttpStatus.OK));
-    }
 }
