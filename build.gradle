@@ -21,7 +21,7 @@ allprojects {
     ext {
         serviceName = "one-panpiper"
         apiVersion = "0.0.1-SNAPSHOT"
-        springCloudVersion = "2021.0.5"
+        springCloudVersion = "2021.0.6"
     }
 
     buildscript {
